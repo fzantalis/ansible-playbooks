@@ -9,7 +9,7 @@ DESTFILE: "{{ PATH }}{{ DISKNAME }}"
 MOUNTDIR: 'storage'
 #This file contains the variables needed for the initialization of the newly created VM
 DNSNAME: 8.8.8.8
-DNSSEARCH: ee.teiath.gr
+DNSSEARCH: 8.8.8.8
 OLDUSER: user
 NBDNUM: 'nbd0'
 NBDNUMPART: "{{ NBDNUM }}p1"

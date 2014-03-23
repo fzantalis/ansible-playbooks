@@ -31,9 +31,9 @@
     - name: "NUSER"
       prompt: "Enter VMs Username: "
       private: no
-    - name: "PASS"
-      prompt: "Enter user's password: "
-      private: yes
+#    - name: "PASS"
+#      prompt: "Enter user's password: "
+#      private: yes
 #=====================================================================================================================
   roles:
     - server_prep

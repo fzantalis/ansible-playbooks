@@ -1,7 +1,7 @@
 ---
 #------------------------Mounting------------------------------------
 - name: mount the created storage p1 Make directory at mnt
-  shell: mkdir /mnt/{{ MOUNTDIR }}
+  shell: mkdir -p /mnt/{{ MOUNTDIR }}
   ignore_errors: True
 
 - name: mount the created storage p2
@@ -38,8 +38,8 @@
 
 #---------------------User Transformation-----------------------------
 
-- name: hashing the password
-  shell: MYHASH=$(echo "{{ PASS }}" | mkpasswd -s -m sha-512)
+#- name: hashing the password
+#  shell: MYHASH=$(echo "{{ PASS }}" | mkpasswd -s -m sha-512)
 
 - name: changing the group entries
   command: sed -i 's/{{ OLDUSER }}/{{ NUSER }}/g' /mnt/{{ MOUNTDIR }}/etc/group
