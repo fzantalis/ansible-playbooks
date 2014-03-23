@@ -1,0 +1,74 @@
+---
+#------------------------Mounting------------------------------------
+- name: mount the created storage p1 Make directory at mnt
+  shell: mkdir /mnt/{{ MOUNTDIR }}
+  ignore_errors: True
+
+- name: mount the created storage p2
+  shell: modprobe nbd max_part=63
+
+- name: mount the created storage p3
+  shell: qemu-nbd -c /dev/{{ NBDNUM }} {{ DESTFILE }}
+
+- name: wait to prepare for mount
+  shell: sleep 7
+
+- name: mount the created storage p1
+  shell: mount /dev/{{ NBDNUMPART }} /mnt/{{ MOUNTDIR }}
+
+#----------------- --Mounting Complete-------------------------------
+#-----------------------Configuring----------------------------------
+
+- copy: content='{{ HOSTNAME }}' dest=/mnt/{{ MOUNTDIR }}/etc/hostname
+
+- name: change hostname pt2
+  command: sed -i "s/127\.0\.1\.1.*$/127\.0\.1\.1\t{{ HOSTNAME }}/" /mnt/{{ MOUNTDIR }}/etc/hosts
+
+- name: change mod to 777 at /etc/network/interfaces
+  command: chmod 777 /mnt/{{ MOUNTDIR }}/etc/network/interfaces
+
+- name: write network configuration settings to the file
+  shell: echo "\taddress {{ IP }}\n\tnetmask {{ NETMASK }}\n\tnetwork {{ NETWORK }}\n\tbroadcast {{ BROADCAST }}\n\tgateway {{ GATEWAY }}\n\tdns-nameservers {{ DNSNAME }}\n\tdns-search {{ DNSSEARCH }}" >> /mnt/{{ MOUNTDIR }}/etc/network/interfaces
+
+- name: Edit the eth0 interface pt1 (replace dhcp with static)
+  command: sed -i 's/dhcp/static/g' /mnt/{{ MOUNTDIR }}/etc/network/interfaces
+
+- name: change mod to 644 /etc/network/interfaces
+  command: chmod 644 /mnt/{{ MOUNTDIR }}/etc/network/interfaces
+
+#---------------------User Transformation-----------------------------
+
+- name: hashing the password
+  shell: MYHASH=$(echo "{{ PASS }}" | mkpasswd -s -m sha-512)
+
+- name: changing the group entries
+  command: sed -i 's/{{ OLDUSER }}/{{ NUSER }}/g' /mnt/{{ MOUNTDIR }}/etc/group
+
+- name: changing the group- entries
+  command: sed -i 's/{{ OLDUSER }}/{{ NUSER }}/g' /mnt/{{ MOUNTDIR }}/etc/group-
+
+- name: changing the passwd entries
+  command: sed -i 's/{{ OLDUSER }}/{{ NUSER }}/g' /mnt/{{ MOUNTDIR }}/etc/passwd
+
+- name: changing the passwd- entries
+  command: sed -i 's/{{ OLDUSER }}/{{ NUSER }}/g' /mnt/{{ MOUNTDIR }}/etc/passwd-
+
+- name: changing the shadow entries
+  command: sed -i 's/{{ OLDUSER }}/{{ NUSER }}/g' /mnt/{{ MOUNTDIR }}/etc/shadow
+
+- name: changing the shadow- entries
+  command: sed -i 's/{{ OLDUSER }}/{{ NUSER }}/g' /mnt/{{ MOUNTDIR }}/etc/shadow-
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#                          TO DO LIST                          |
+#--------------------------------------------------------------|
+#   1. Replace the old hashed pass in shadow & shadow- with    |
+#      the one stored in MYHASH.                               |
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+- name: changing home directory
+  command: mv /mnt/{{ MOUNTDIR }}/home/{{ OLDUSER }} /mnt/{{ MOUNTDIR }}/home/{{ NUSER }}
+
+- name: changing home directory pt2
+  command: chown {{ NUSER }}:{{ NUSER }} /mnt/{{ MOUNTDIR }}/home/{{ NUSER }}
+

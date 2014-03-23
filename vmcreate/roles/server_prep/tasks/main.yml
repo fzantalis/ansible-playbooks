@@ -1,0 +1,10 @@
+---
+#this role verifies that the server has all virtualization required packages installed
+- name: Verify package installation | install if not present
+  action: apt pkg={{ item }} state=installed
+  with_items:
+   - kvm
+   - qemu-kvm
+   - libvirt-bin
+   - virtinst
+   - whois

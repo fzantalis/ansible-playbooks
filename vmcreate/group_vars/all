@@ -1,0 +1,16 @@
+---
+#This file contains the variables needed to create a new VM
+FORMAT: qcow2
+PATH: '/var/lib/libvirt/images/'
+VMTEMPLATE: 'Ubuntu-12.04-template'
+DISKNAME: "{{ VMNAME }}.{{ FORMAT }}"
+SOURCEFILE: "{{ PATH }}{{ VMTEMPLATE }}.{{ FORMAT }}"
+DESTFILE: "{{ PATH }}{{ DISKNAME }}"
+MOUNTDIR: 'storage'
+#This file contains the variables needed for the initialization of the newly created VM
+DNSNAME: 8.8.8.8
+DNSSEARCH: ee.teiath.gr
+OLDUSER: user
+NBDNUM: 'nbd0'
+NBDNUMPART: "{{ NBDNUM }}p1"
+

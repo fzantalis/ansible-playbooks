@@ -1,0 +1,42 @@
+---
+- hosts: "{{ hosts }}"
+  user: "{{ user }}"
+  sudo: yes
+  gather_facts: no
+#*********************************************************************************************************************  
+# VARS PROMPTING 
+#-----------------------------------------
+  vars_prompt:
+    - name: "VMNAME"
+      prompt: "Enter VMs name: "
+      private: no
+    - name: "IP"
+      prompt: "Enter VMs IP: "
+      private: no
+    - name: "NETMASK"
+      prompt: "Enter VMs subnet mask: "
+      private: no
+    - name: "NETWORK"
+      prompt: "Enter VMs net address: "
+      private: no
+    - name: "BROADCAST"
+      prompt: "Enter VMs broadcast address: "
+      private: no
+    - name: "GATEWAY"
+      prompt: "Enter VMs gateway: "
+      private: no
+    - name: "HOSTNAME"
+      prompt: "Enter VMs hostname: "
+      private: no
+    - name: "NUSER"
+      prompt: "Enter VMs Username: "
+      private: no
+    - name: "PASS"
+      prompt: "Enter user's password: "
+      private: yes
+#=====================================================================================================================
+  roles:
+    - server_prep
+    - create
+    - configure
+    - cleanup

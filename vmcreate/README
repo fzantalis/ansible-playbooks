@@ -1,0 +1,9 @@
+#How to run this playbook
+
+1.Configure variables 
+2.Run 
+------------------------------------------------------------------------------------------------------------------------------
+	ansible-playbook vm_create_configure_ultimate_playbook.yml --extra-vars "hosts=exampleHosts user=exampleUser" -f 10 -K
+------------------------------------------------------------------------------------------------------------------------------
+3.Then insert sudo password when prompted.
+4.Remember to add the created vm's IP to the /etc/ansible/hosts file
