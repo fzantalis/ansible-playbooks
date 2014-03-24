@@ -1,0 +1,10 @@
+---
+#update repositories
+- apt: update_cache=yes
+
+#apt-get dist-upgrade
+- apt: upgrade=dist
+
+- name: Copy finalizing script
+  action: template src=finalizing.j2 dest=/home/{{ LOCALUSER }}/finalizing owner=root group=root mode=0777
+

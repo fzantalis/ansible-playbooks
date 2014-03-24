@@ -1,0 +1,12 @@
+---
+#This playbook installs and prepare for use a LAMP server
+
+- hosts: "{{ hosts }}"
+  user: "{{ user }}"
+  sudo: yes
+  gather_facts: no
+#==========================================
+  roles:
+    - common
+    - csync2 
+    - incron

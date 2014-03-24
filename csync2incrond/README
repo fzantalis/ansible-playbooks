@@ -1,0 +1,20 @@
+#How to run this playbook
+
+1.Configure variables in group_vars/all
+2.Run 
+------------------------------------------------------------------------------------------------------------------------------
+	ansible-playbook csync2incrond.yml --extra-vars "hosts=exampleHosts user=exampleUser" -f 10 -K
+------------------------------------------------------------------------------------------------------------------------------
+3.Then insert sudo password when prompted.
+==================================================================
+This playbook helps you prepare an automated synchronization architecture between two servers
+this playbooks uses 'csync2' as an asynchronous file synchronization tool and 'incron' as a handler to triger
+csync2 when needed... ( when modyfing / deleting / creating  files etc...)
+This playbook shows installation on the one server only... the same has to be done to the second synchronizing node...
+most of the magic happens in the playbook itself.. but because of some prompted values needed, 
+the rest of the magic continues with a 'finalizing.sh' script which is created in user's home directory after running the playbook... 
+So:
+- run the playbook
+- excecute the shell script 'finalizing.sh (one one node only)
+- run the playbook on second node and copy some config files from first node to the others
+( sudo scp /etc/csync2* user@remotehost:/etc/. )

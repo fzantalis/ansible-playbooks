@@ -1,0 +1,11 @@
+nossl * *;
+group {{ LOCALHOST }} {
+        host    {{ LOCALHOST }};
+        host    {{ REMOTEHOST }};
+        key     /etc/csync2.key;
+        include {{ SYNCDIR }};
+ 
+        backup-directory /var/backups/csync2;
+        backup-generations 5;
+        auto first;
+}

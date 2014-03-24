@@ -1,0 +1,9 @@
+nossl * *;
+group web {
+        host {{ LOCALHOST }};
+        host {{ REMOTEHOST }};
+        key /etc/csync2.key;
+        include {{ SYNCDIR }};
+        backup-generations 5;
+        auto first;
+}

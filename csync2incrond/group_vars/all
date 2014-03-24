@@ -1,0 +1,8 @@
+---
+#Variables for database configuration. No need to include in vars_files they are auto populated
+LOCALHOST: own1
+REMOTEHOST: own2
+LOCALIP: '10.10.10.61'
+REMOTEIP: '10.10.10.62'
+LOCALUSER: user
+SYNCDIR: '/var/www/owncloud/config'
