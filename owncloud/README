@@ -1,0 +1,34 @@
+#How to run this playbook
+
+1.Configure variables in group_vars/all
+2.Run 
+------------------------------------------------------------------------------------------------------------------------------ ansible-playbook owncloud_server.yml --extra-vars "hosts=exampleHosts user=exampleUser" -f 10 -K
+------------------------------------------------------------------------------------------------------------------------------
+3.Then insert sudo password when prompted.
+4.may need to run: "sudo chown -R www-data:www-data /var/data"  ,on remote server after first web login
+=================================================
+PLAYBOOK OVERVIEW
+=================================================
+This playbook installs owncloud server 6.0.0a on an Ubunut server 12.04
+After running this playbook you 'll get a working LAMP ( Linux Apache2 MySQL PHP ) 
+and of course owncloud up and running..
+Owncloud ususally needs some configuration at the first run. However this playbook 
+uses the large scale server deployment solution wich includes an "autoconfig" file.
+So the owncloud instance is autoconfigured inside this playbook.
+-------------------
+default username specified in 'owncloud/roles/server_copy/templates/autoconfig.php.j2'
+is: admin
+-------------------
+=====================================================
+****************** VERY IMPORTANT *******************
+=====================================================
+| Remember to download and copy the desired owncloud|
+| version in the directory:                         |
+| 'owncloud/roles/server_copy/files/' 		    |
+| and set the correct full version in the respective|
+| variable			                    |
+=====================================================
+! Webdav seems to be a little sensitive with ssl keys
+if working on a local machine or virtual invironment and you have webdav configuration 
+problem, you can uncomment the commented line in the server_copy role
+there lies a work arround for this common problem !

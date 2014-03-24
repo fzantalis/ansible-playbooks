@@ -1,0 +1,50 @@
+---
+#this role copies and extracts owncloud server 
+- name: Copy owncloud server
+  copy: src=owncloud-{{ OWNCLOUDVER }}.tar.bz2 dest=/home/gregory/owncloud-{{ OWNCLOUDVER }}.tar.bz2 owner=root group=root 
+
+- name: extract the owncloud server
+  command: tar -xjf owncloud-{{ OWNCLOUDVER }}.tar.bz2 -C /var/www --overwrite
+
+- name: autoconfig file 
+  action: template src=autoconfig.php.j2 dest=/var/www/owncloud/config/autoconfig.php owner=www-data group=www-data mode=0644
+
+- name: remove apache default index file
+  command: rm /var/www/index.html
+
+#- name: fix webdav ssl error
+#  copy: src=Client.php dest=/var/www/owncloud/3rdparty/Sabre/DAV/Client.php owner=www-data group=www-data mode=0644
+
+- name: enable htaccess and mod_rewrite on apache
+  copy: src=default-ssl dest=/etc/apache2/sites-available/default-ssl owner=root group=root mode=0644
+
+- name: symbolink link of phpmyadmin to /var/www
+  file: src=/etc/apache2/sites-available/default-ssl path=/etc/apache2/sites-enabled/default-ssl state=link mode=0777
+
+- name: enable htaccess and mod_rewrite on apache
+  copy: src=index.php dest=/var/www/index.php owner=root group=root mode=0644
+
+- name: a2enmod rewrite 
+  command: a2enmod rewrite
+
+- name: a2enmod headers
+  command: a2enmod headers
+
+- name: default-ssl for virtual host
+  command: a2ensite default-ssl
+
+- name: enable ssl mod
+  command: a2enmod ssl
+
+- name: change owncloud folder permissions
+  command: chown -R www-data:www-data /var/www/owncloud
+
+- name: change owncloud folder permissions (config)
+  command: chmod -R 777 /var/www/owncloud/config
+
+- name: change owncloud folder permissions (apps)
+  command: chmod -R 777 /var/www/owncloud/apps
+ 
+- name: move the data folder 
+  shell: mv /var/www/owncloud/data /var/.
+  notify: restart apache2
