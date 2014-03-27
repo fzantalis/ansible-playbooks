@@ -1,0 +1,11 @@
+---
+#This playbook installs  nd configures nginx on an Ubuntu Server 12.04
+
+- hosts: "{{ hosts }}"
+  user: "{{ user }}"
+  sudo: yes
+  gather_facts: no
+#==========================================
+  roles:
+    - common
+    - nginx

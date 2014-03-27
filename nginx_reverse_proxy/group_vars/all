@@ -1,0 +1,7 @@
+---
+#Variables. No need to include in vars_files they are auto populated
+#Nginx configuration file variables
+SERVERNODE1: '172.16.16.61:81' # nginx will use this server as 1/2 nodes to load balance
+SERVERNODE2: '172.16.16.62:81' # nginx will use this server as 2/2 nodes to load balance
+UPSTREAMNAME: ownload 	       # This is the name of the group of the balanced nodes
+SERVERNAME: own1	       # Proxied server's name
