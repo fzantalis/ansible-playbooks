@@ -1,0 +1,10 @@
+#!/bin/sh
+ssh-copy-id {{ LOCALUSER }}@{{ REMOTEIP }}
+sudo su
+openssl genrsa -out /etc/csync2_ssl_key.pem 1024
+openssl req -new -key /etc/csync2_ssl_key.pem -out /etc/csync2_ssl_cert.csr
+openssl x509 -req -days 600 -in /etc/csync2_ssl_cert.csr -signkey /etc/csync2_ssl_key.pem -out /etc/csync2_ssl_cert.pem
+csync2 -k /etc/csync2.key
+chmod 644 /etc/csync2.key
+service openbsd-inetd restart
+service incron restart

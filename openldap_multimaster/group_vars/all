@@ -1,0 +1,10 @@
+---
+#Variables for database configuration. No need to include in vars_files they are auto populated
+SERVER1NAME: ldap1
+SERVER2NAME: ldap2
+SERVER1IP: '10.10.10.1'
+SERVER2IP: '10.10.10.2'
+SERVER1ID: 1
+SERVER2ID: 2
+LDAPPASS: 'password'
+SERVERUSER: user

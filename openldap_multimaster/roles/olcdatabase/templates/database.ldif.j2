@@ -1,0 +1,18 @@
+dn: olcDatabase={1}hdb,cn=config
+changetype: modify
+add: olcLimits
+olcLimits: dn.exact="cn=admin,dc={{ SERVER1NAME }}" time.soft=unlimited time.hard=unlimited size.soft=unlimited size.hard=unlimited
+-
+add: olcSyncRepl
+olcSyncRepl: rid=004 provider=ldap://{{ SERVER1NAME }}/ binddn="cn=admin,dc={{ SERVER1NAME }}"
+bindmethod=simple credentials= {{ LDAPPASS }} searchbase="dc={{ SERVER1NAME }}" type=refreshOnly interval=00:00:00:10 retry="5 5 300 5" timeout=1
+olcSyncRepl: rid=005 provider=ldap://{{ SERVER2NAME }}/ binddn="cn=admin,dc={{ SERVER1NAME }}" bindmethod=simple credentials= {{ LDAPPASS }} searchbase="dc={{ SERVER1NAME }}" type=refreshOnly interval=00:00:00:10 retry="5 5 300 5" timeout=1
+-
+add: olcDbIndex
+olcDbIndex: entryUUID eq
+-
+add: olcDbIndex
+olcDbIndex: entryCSN eq
+-
+add: olcMirrorMode
+olcMirrorMode: TRUE

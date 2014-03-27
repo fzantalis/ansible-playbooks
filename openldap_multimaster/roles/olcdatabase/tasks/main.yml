@@ -1,0 +1,14 @@
+---
+#sync olcdatabase
+- name: set database ldif
+  action: template src=database.ldif.j2 dest=/home/{{ SERVERUSER }}/database.ldif
+
+- name: set sync3 ldif
+  action: template src=sync3.ldif.j2 dest=/home/{{ SERVERUSER }}/sync3.ldif
+
+- name: ldap modify for database
+  command: sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f database.ldif
+
+- name: ldap modify for sync3
+  command: sudo ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f sync3.ldif
+

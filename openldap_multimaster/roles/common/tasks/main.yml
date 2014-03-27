@@ -1,0 +1,6 @@
+---
+#update repositories
+- apt: update_cache=yes
+
+#apt-get dist-upgrade
+- apt: upgrade=dist
