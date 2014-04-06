@@ -1,0 +1,5 @@
+dn: ou=groups,dc=server1
+ou: groups
+description: All groups in guineapig
+objectClass: top
+objectClass: organizationalUnit

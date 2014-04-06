@@ -1,0 +1,16 @@
+---
+# Installing and configuring nginx
+- name: Install nginx
+  action: apt pkg=nginx state=installed
+
+- name: copy nginx virtual server configuration file in sites-available directory
+  action: template src=example.j2 dest=/etc/nginx/sites-available/example owner=root group=root mode=0644
+
+- name: activate the virtual server
+  shell: ln -s /etc/nginx/sites-available/example /etc/nginx/sites-enabled/example
+
+- name: remove the default configuration file to avoid conflicts
+  shell: rm /etc/nginx/sites-enabled/default
+  notify: restart nginx
+
+

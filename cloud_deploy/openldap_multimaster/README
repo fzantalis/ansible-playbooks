@@ -1,0 +1,21 @@
+#How to run this playbook
+
+1.Configure variables in group_vars/all
+2.Run 
+------------------------------------------------------------------------------------------------------------------------------
+	ansible-playbook openldap_multimaster.yml -f 10 -K
+------------------------------------------------------------------------------------------------------------------------------
+3.Then insert sudo password when prompted.
+==================================================================
+PLAYBOOK OVERVIEW
+==================================================================
+This playbook helps configuring two servers with openLDAP installed
+so that they sync in master master mode.
+The installation was done on one server with the scipt "openldap-install/openldap_install.sh"
+and then the server was cloned and changed the hostname and ip address
+This playbook at first configures the two servers to sync their configuration files
+and then they are configured to sync the olcdatabase...
+
+basically there are created some ldif files and then they are added to the ldap schema...
+
+the ldifs can be found on each server's home directory after running the playbook 

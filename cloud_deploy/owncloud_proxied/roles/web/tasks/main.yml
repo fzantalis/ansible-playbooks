@@ -1,0 +1,22 @@
+---
+# Installing apache and php
+- name: Install Apache2 and PHP5
+  action: apt pkg={{ item }} state=installed
+  with_items:
+   - apache2
+   - unzip
+   - php5
+   - php-xml-parser
+   - php5-gd
+   - php5-intl
+   - php5-sqlite
+   - php5-mysql
+   - php5-ldap
+   - ldap-utils
+   - smbclient
+   - curl
+   - libcurl3
+   - php5-curl
+  notify: restart apache2
+
+

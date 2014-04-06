@@ -1,0 +1,16 @@
+---
+- name: create dummy storage with qemu
+  command: qemu-img create -f qcow2 {{ DESTFILE }} 8G
+
+- name: create the vm with dummy storage
+  command: virt-install --name={{ VMNAME }} --arch=x86_64 --ram=1024 --vcpus=1 --accelerate --network=bridge:br0,model=virtio --connect=qemu:///system --vnc --noapic --noautoconsole -v --os-type=linux --disk path={{ DESTFILE }},format=qcow2,bus=virtio,size=8 --import --noreboot
+
+- name: remove dummy storage
+  command: rm -rf {{ DESTFILE }}
+
+- name: clone the existing template
+  command: cp {{ SOURCEFILE }} {{ DESTFILE }}
+
+- name: change owner at the created storage
+  command: chown libvirt-qemu:kvm {{ DESTFILE }}
+

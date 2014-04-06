@@ -1,0 +1,12 @@
+---
+#install the package csync2
+- apt: pkg=csync2 state=present
+
+- name: csync config files 1/3
+  action: template src=csync2.cfg.j2 dest=/etc/csync2.cfg owner=root group=root mode=0644
+
+- name: csync config files 2/3
+  action: template src=csync2_own1.cfg.j2 dest=/etc/csync2_{{ LOCALHOST }}.cfg owner=root group=root mode=0644
+
+- name: csync config files 3/3
+  action: template src=csync2_own2.cfg.j2 dest=/etc/csync2_{{ REMOTEHOST }}.cfg owner=root group=root mode=0644

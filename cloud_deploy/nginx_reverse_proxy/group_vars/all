@@ -1,0 +1,7 @@
+---
+#Variables. No need to include in vars_files they are auto populated
+#Nginx configuration file variables
+SERVERNODE1: "172.16.16.17:81"
+SERVERNODE2: "172.16.16.16:81"
+UPSTREAMNAME: 'cloud'
+SERVERNAME: 'guineapig'

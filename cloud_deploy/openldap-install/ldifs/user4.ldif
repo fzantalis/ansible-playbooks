@@ -1,0 +1,14 @@
+dn: uid=user4,ou=users,dc=server1
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+objectClass: posixAccount
+uid: user4
+cn: The User4
+uidNumber: 5000
+gidNumber: 5000
+mail: user4@test.com
+sn: TheUser4
+givenName: User4TheUser
+homeDirectory: /home/user4

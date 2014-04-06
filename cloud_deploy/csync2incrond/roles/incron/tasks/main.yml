@@ -1,0 +1,11 @@
+---
+#this role installs and configures incrond
+
+#install incron
+- apt: pkg=incron state=present
+
+- name: incrond allow list 
+  action: template src=incron.allow.j2 dest=/etc/incron.allow
+
+- name: incrond root crontab
+  action: template src=root.j2 dest=/var/spool/incron/root

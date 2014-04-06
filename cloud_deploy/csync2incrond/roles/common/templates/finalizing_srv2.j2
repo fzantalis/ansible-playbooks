@@ -1,0 +1,7 @@
+#!/bin/sh
+ssh-keygen -t rsa
+ssh-copy-id {{ LOCALUSER }}@{{ LOCALIP }}
+scp {{ LOCALUSER }}@{{ LOCALIP }}:/etc/csync* .
+sudo mv csync* /etc/.
+#service openbsd-inetd restart
+#service incron restart

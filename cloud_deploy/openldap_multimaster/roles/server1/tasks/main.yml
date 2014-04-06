@@ -1,0 +1,44 @@
+---
+
+#configure server 1
+- name: set hosts file
+  action: template src=hosts.j2 dest=/etc/hosts
+
+- name: set slapd file
+  action: template src=slapd.j2 dest=/etc/default/slapd
+
+- name: set idconf ldif
+  action: template src=idconf.ldif.j2 dest=/home/{{ SERVERUSER }}/idconf.ldif
+
+- name: set syncproc ldif
+  action: template src=syncprov.ldif.j2 dest=/home/{{ SERVERUSER }}/syncprov.ldif
+
+- name: set useradd ldif
+  action: template src=useradd.ldif.j2 dest=/home/{{ SERVERUSER }}/useradd.ldif
+
+- name: set refreshid ldif
+  action: template src=refreshid.ldif.j2 dest=/home/{{ SERVERUSER }}/refreshid.ldif
+
+- name: set sync1 ldif
+  action: template src=sync1.ldif.j2 dest=/home/{{ SERVERUSER }}/sync1.ldif
+
+- name: set sync2 ldif
+  action: template src=sync2.ldif.j2 dest=/home/{{ SERVERUSER }}/sync2.ldif
+
+- name: ldap modify for idconf
+  command: ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f idconf.ldif
+
+- name: ldap modify for syncprov
+  command: ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f syncprov.ldif
+
+- name: ldap modify for useradd
+  command: ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f useradd.ldif
+
+- name: ldap modify for refreshid
+  command: ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f refreshid.ldif
+
+- name: ldap modify for sync1
+  command: ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f sync1.ldif
+
+- name: ldap modify for sync2
+  command: ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f sync2.ldif

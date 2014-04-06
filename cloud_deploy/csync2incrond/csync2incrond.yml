@@ -1,0 +1,30 @@
+---
+#This playbook installs and prepare for use a LAMP server
+
+- hosts: 172.16.16.17
+  user: gregory
+  sudo: yes
+  gather_facts: no
+#==========================================
+  tasks:
+    - name: copy hosts file
+      action: template src=hosts_1.j2 dest=/etc/hosts 
+ 
+  roles:
+    - common
+    - csync2 
+    - incron
+
+- hosts: 172.16.16.16
+  user: gregory
+  sudo: yes
+  gather_facts: no
+#==========================================
+  tasks:
+    - apt: pkg=csync2 state=present
+
+    - name: copy hosts file
+      action: template src=hosts_2.j2 dest=/etc/hosts 
+  roles:
+    - incron
+

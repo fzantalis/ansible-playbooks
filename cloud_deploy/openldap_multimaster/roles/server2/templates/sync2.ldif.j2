@@ -1,0 +1,14 @@
+dn: olcDatabase={0}config,cn=config
+changetype: modify
+add: olcSyncRepl
+olcSyncRepl: rid=001 provider=ldap://{{ SERVER1NAME }}/ binddn="cn=config"
+  bindmethod=simple credentials={{ LDAPPASS }}
+  searchbase="cn=config" type=refreshAndPersist
+  retry="5 5 300 5" timeout=1
+olcSyncRepl: rid=002 provider=ldap://{{ SERVER2NAME }}/ binddn="cn=config"
+  bindmethod=simple credentials={{ LDAPPASS }}
+  searchbase="cn=config" type=refreshAndPersist
+  retry="5 5 300 5" timeout=1
+-
+add: olcMirrorMode
+olcMirrorMode: TRUE

@@ -1,0 +1,29 @@
+#How to run this playbook
+
+1.Configure variables 
+2.Run 
+------------------------------------------------------------------------------------------------------------------------------
+	ansible-playbook vm_create_configure_ultimate_playbook.yml --extra-vars "hosts=exampleHosts user=exampleUser" -f 10 -K
+------------------------------------------------------------------------------------------------------------------------------
+3.Then insert sudo password when prompted.
+4.Remember to add the created vm's IP to the /etc/ansible/hosts file
+====================================================================
+PLAYBOOK OVERVIEW
+====================================================================
+This playbook runs accross 4 stages.
+1. the playbook prepares the server for virtualization.
+The playbook checks if the required packages are installed, and if they are missing 
+they are installed in order to continue. 
+!!! THIS PLAYBOOK IS MADE ON A UBUNTU SERVER 12.04 LTS Server !!!
+
+2. The playbook creates the storage that will be used for the new virtual machine 
+based on a Ubuntu 12.04 LTS server template, and then it runs the virt-install command
+to create the new virtual amchine
+
+3. After the virtual machine is created, the storage is mounted by the server running the 
+ansible script so that it can be configured just before the VM boots for first time
+
+4. After the virtual machine is configured, a little cleanup is begining at the server
+(unmounting the storage, romoving nbd module etc...)
+Then the VM boots and is ready to go...
+

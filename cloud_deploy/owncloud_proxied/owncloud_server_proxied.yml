@@ -1,0 +1,23 @@
+---
+#This playbook installs owncloud 6.0.0a on Ubuntu Server 12.04
+
+- hosts: "{{ hosts }}"
+  user: "{{ user }}"
+  sudo: yes
+  gather_facts: no
+#==========================================
+  vars_prompt:
+    - name: "MYSQLPASS"
+      prompt: "Enter MySQL password: "
+      private: yes
+    - name: "ADMINPASS"
+      prompt: "Enter admin user's password: "
+      private: yes
+
+#==========================================
+  roles:
+    - common
+    - web
+    - database
+    - server_copy
+    - proxy

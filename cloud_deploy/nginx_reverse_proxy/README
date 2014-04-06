@@ -1,0 +1,17 @@
+#How to run this playbook
+
+1.Configure variables in group_vars/all
+2.Run 
+------------------------------------------------------------------------------------------------------------------------------ 
+ansible-playbook nginx.yml --extra-vars "hosts=exampleHosts user=exampleUser" -f 10 -K
+------------------------------------------------------------------------------------------------------------------------------
+3.Then insert sudo password when prompted.
+=================================================
+PLAYBOOK OVERVIEW
+=================================================
+This playbook installs and configures nginx on an ubuntu 12.04 server
+For the purpose of this playbook nginx will be used alongside with some apache servers
+which are installed in some remote addresses.
+Nginx will be used as a reverse proxy - load balancer for two apache servers
+nginx will get client requests and will proxy each of the two balanced servers 
+depending on the traffic or the specified rules at the upstream section of nginx.

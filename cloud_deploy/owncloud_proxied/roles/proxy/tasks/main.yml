@@ -1,0 +1,10 @@
+---
+- name: copy the apache example file
+  action: template src=example.j2 dest=/etc/apache2/sites-available/example
+
+- name: copy apache ports file
+  action: template src=ports.conf.j2 dest=/etc/apache2/ports.conf
+
+- name: enable example site
+  command: a2ensite example
+  notify: restart apache2

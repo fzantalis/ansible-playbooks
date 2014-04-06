@@ -1,0 +1,27 @@
+---
+# now just on one server...
+
+#- hosts: 172.16.16.17
+#  user: gregory
+#  gather_facts: no
+#  sudo: yes
+#  roles:
+#    - server1
+
+# now just on the other server...
+
+#- hosts: 172.16.16.16
+#  user: gregory
+#  gather_facts: no
+#  sudo: yes
+#  roles:
+#    - server2
+
+# Finally sync database directory..
+
+- hosts: 172.16.16.17
+  user: gregory
+  gather_facts: no
+  sudo: yes
+  roles:
+     - olcdatabase

@@ -1,0 +1,26 @@
+---
+#---------------------------------------------------------------
+# cleaning host machine
+#---------------------------------------------------------------
+- name: unmount the created storage
+  shell: umount /mnt/{{ MOUNTDIR }}
+
+- name: start the created VM (TA DA!!!)
+  command: virsh -c qemu:///system start {{ VMNAME }}
+    
+- name: find processes PID using the nbd module
+  command: pgrep -u root nbd
+  register: processes
+
+- name: kill the above processes
+  command: kill -s 16 {{ item }}
+  with_items: processes.stdout_lines
+  ignore_errors: True
+
+- name: remove the nbd module
+  command: rmmod nbd
+
+- name: remove  /dev/nbd partitions if any
+  command: rm /dev/nbd*
+  ignore_errors: True
+

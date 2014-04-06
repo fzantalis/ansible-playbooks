@@ -1,0 +1,7 @@
+---
+#Variables. No need to include in vars_files they are auto populated
+DBNAME: owncloud
+DBUSER: root
+OCUSER: oc_admin
+UPASSWORD: '{{ MYSQLPASS }}'
+OWNCLOUDVER: "6.0.0a"

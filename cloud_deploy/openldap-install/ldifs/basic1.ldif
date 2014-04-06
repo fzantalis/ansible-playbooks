@@ -1,0 +1,5 @@
+dn: ou=users,dc=server1
+ou: users
+description: All users in guineapig
+objectClass: top
+objectClass: organizationalUnit

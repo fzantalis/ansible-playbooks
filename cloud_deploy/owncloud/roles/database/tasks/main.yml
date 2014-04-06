@@ -1,0 +1,25 @@
+---
+#this role installes and configures mysql database
+- name: Install MySQL etc
+  action: apt pkg={{ item }} state=installed
+  with_items:
+   - mysql-server
+   - phpmyadmin
+   - python-mysqldb
+
+- name: Start the MySQL service
+  action: service name=mysql state=started
+
+- name: Configure the root credentials
+  command: mysqladmin password {{ MYSQLPASS }}
+  ignore_errors: True
+  notify: restart mysql
+
+- name: symbolink link of phpmyadmin to /var/www
+  file: src=/usr/share/phpmyadmin path=/var/www/phpmyadmin state=link
+
+# Creates database user with all database privileges and 'WITH GRANT OPTION'
+#- mysql_user: login_user=root login_password={{ MYSQLPASS }} name=oc_admin password={{ DBUPASS }} priv=*.*:ALL,GRANT state=present
+
+# Create a new database with name 'owncloud'
+- mysql_db: login_user=root login_password={{ MYSQLPASS }} name={{ DBNAME }} state=present

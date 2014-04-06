@@ -1,0 +1,5 @@
+dn: cn=config
+changetype: modify
+replace: olcServerID
+olcServerID: 1 ldap://{{ SERVER1NAME }}/
+olcServerID: 2 ldap://{{ SERVER2NAME }}/
